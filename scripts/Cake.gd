@@ -1,5 +1,10 @@
 extends "ScrollMovement.gd"
 
+onready var animation = $Sprite
+
+func _ready():
+	animation.play("fly")
+	
 func _physics_process(delta):
 	move()
 

@@ -1,7 +1,13 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/Foreground.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/Spawner.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/Cake.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/Obstacle.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/Clown.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/BikeClown.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/clouds.tscn" type="PackedScene" id=8]
 
 [node name="Game" type="Node2D"]
 
@@ -11,3 +17,18 @@ z_index = -10
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 95, 453 )
+
+[node name="Spawner3" parent="Player" instance=ExtResource( 3 )]
+position = Vector2( 465, -96 )
+scenes = [ ExtResource( 8 ) ]
+timer = 14.0
+
+[node name="Spawner" parent="." instance=ExtResource( 3 )]
+position = Vector2( 498, 453 )
+scenes = [ ExtResource( 5 ), ExtResource( 7 ), ExtResource( 6 ) ]
+timer = 4.0
+
+[node name="Spawner2" parent="." instance=ExtResource( 3 )]
+position = Vector2( 574, 418 )
+scenes = [ ExtResource( 4 ) ]
+timer = 7.0

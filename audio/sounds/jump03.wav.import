@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/jump03.wav-d71891bc07f630b1941125ca53a60901.sample"
+
+[deps]
+
+source_file="res://audio/sounds/jump03.wav"
+dest_files=[ "res://.import/jump03.wav-d71891bc07f630b1941125ca53a60901.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
