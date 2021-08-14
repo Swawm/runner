@@ -1,4 +1,7 @@
 extends KinematicBody2D
+class_name Player
+
+signal killplayer
 
 var velocity = Vector2.ZERO
 var sounds : Array
@@ -11,8 +14,9 @@ onready var sound_3 = preload("res://audio/sounds/jump03.wav")
 onready var sound_4 = preload("res://audio/sounds/jump04.wav")
 
 
-export var jump_velocity = 400.0
-export var gravity_scale = 20.0
+
+export var jump_velocity = 350.0
+export var gravity_scale = 9.5
 
 enum {
 	JUMP,
@@ -50,6 +54,7 @@ func _input(event):
 		
 	
 func _ready():
+	Signals.connect("killplayer", self, "killplayer")
 	sounds = [ sound_1, sound_2, sound_3, sound_4 ] 
 	animation.play("Run")
 
@@ -73,7 +78,6 @@ func _on_Area2D_body_exited(body):
 #	return statelist.front()
 
 
-
 func _play_sound(sound_index):
 	var sound = sounds[sound_index]
 	audio.stream = sound 
@@ -81,6 +85,12 @@ func _play_sound(sound_index):
 
 
 
+func killplayer():
+	queue_free()
+	pass
+	
 
-
-
+func _on_Timer_timeout():
+	Signals.score +=1
+	$Timer.start()
+	return Signals.score

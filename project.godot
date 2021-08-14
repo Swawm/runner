@@ -8,16 +8,31 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "KinematicBody2D",
+"class": "Player",
+"language": "GDScript",
+"path": "res://scripts/Player.gd"
+} ]
+_global_script_class_icons={
+"Player": ""
+}
+
 [application]
 
 config/name="runner"
 run/main_scene="res://scenes/Game.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+Signals="*res://scripts/Signals.gd"
+ScrollMovement="*res://scripts/ScrollMovement.gd"
+
 [display]
 
-window/size/width=640
-window/size/height=480
+window/size/width=600
+window/size/height=500
 
 [input]
 

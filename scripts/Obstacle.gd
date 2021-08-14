@@ -6,5 +6,6 @@ func _physics_process(delta):
 
 func _on_Area2D_body_entered(body):
 	if body.name =="Player":
-		print("player died")
+		Signals.emit_signal("killplayer")
+		queue_free()
 	pass # Replace with function body.

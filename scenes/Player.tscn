@@ -68,16 +68,13 @@ frames = SubResource( 8 )
 animation = "Fall"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource( 9 )
-
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2( 74, -47 )
-current = true
-zoom = Vector2( 0.3, 0.3 )
 
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+visible = false
 position = Vector2( 0, 16 )
 shape = SubResource( 10 )
 
