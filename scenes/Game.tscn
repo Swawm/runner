@@ -1,9 +1,9 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/Foreground.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/Spawner.tscn" type="PackedScene" id=3]
-[ext_resource path="res://scenes/Cake.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scripts/Cloud_Spawner.gd" type="Script" id=4]
 [ext_resource path="res://scenes/Obstacle.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/Clown.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/BikeClown.tscn" type="PackedScene" id=7]
@@ -11,6 +11,21 @@
 [ext_resource path="res://scenes/Score.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scripts/Game.gd" type="Script" id=10]
 [ext_resource path="res://scenes/Game Over.tscn" type="PackedScene" id=11]
+[ext_resource path="res://scenes/Cake.tscn" type="PackedScene" id=12]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Control
+
+
+func _ready():
+	get_tree().paused = true
+	
+	
+func _physics_process(delta):
+	if Input.is_action_just_pressed(\"jump\"):
+		get_tree().paused = false
+	pass
+"
 
 [node name="Game" type="Node2D"]
 script = ExtResource( 10 )
@@ -27,24 +42,20 @@ z_index = -10
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 98, 458 )
 
-[node name="Spawner3" parent="." instance=ExtResource( 3 )]
-position = Vector2( 563, 362 )
+[node name="Clouds" type="Node2D" parent="."]
+position = Vector2( 564, 363 )
+script = ExtResource( 4 )
 scenes = [ ExtResource( 8 ) ]
-timer = 14.0
+timer = 40.0
+
+[node name="Timer" type="Timer" parent="Clouds"]
+wait_time = 100.0
+autostart = true
 
 [node name="Spawner" parent="." instance=ExtResource( 3 )]
 position = Vector2( 498, 461 )
-scenes = [ ExtResource( 5 ), ExtResource( 7 ), ExtResource( 6 ) ]
+scenes = [ ExtResource( 12 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 5 ) ]
 timer = 4.0
-
-[node name="Spawner2" parent="." instance=ExtResource( 3 )]
-position = Vector2( 574, 426 )
-scenes = [ ExtResource( 4 ) ]
-timer = 7.0
-
-[node name="Timer" type="Timer" parent="."]
-wait_time = 0.5
-autostart = true
 
 [node name="Score" parent="." instance=ExtResource( 9 )]
 anchor_left = 1.0
@@ -61,4 +72,13 @@ margin_top = 170.826
 margin_right = -129.228
 margin_bottom = 170.826
 
-[connection signal="timeout" from="Timer" to="Player" method="_on_Timer_timeout"]
+[node name="Pause" type="Control" parent="."]
+pause_mode = 2
+margin_right = 40.0
+margin_bottom = 40.0
+script = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="timeout" from="Clouds/Timer" to="Clouds" method="_on_Timer_timeout"]

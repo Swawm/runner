@@ -5,6 +5,7 @@ func _ready():
 	pass
 	
 func gameover():
+	$ded.play()
 	self.show()
 	if Signals.score >= 40:
 		$Listen.show()

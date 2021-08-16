@@ -15,16 +15,17 @@ onready var sound_4 = preload("res://audio/sounds/jump04.wav")
 
 
 
-export var jump_velocity = 300.0
-export var gravity_scale = 9.5
+export var jump_velocity = 310.0
+export var gravity_scale = 9.8
 
 enum {
 	JUMP,
 	RUN,
-	IDLE
+	IDLE,
+	FALL
 }
 
-var state = RUN 
+var state = IDLE 
 
 onready var animation = $AnimatedSprite
 
@@ -43,6 +44,10 @@ func _physics_process(delta):
 			sound_index += 1
 		IDLE:
 			pass
+		FALL:
+			animation.play("Fall")
+			set_physics_process(false)
+			
 	
 	velocity.y += gravity_scale
 	move_and_collide(velocity*delta)
@@ -86,11 +91,11 @@ func _play_sound(sound_index):
 
 
 func killplayer():
-	queue_free()
+	state = FALL
 	pass
-	
 
 func _on_Timer_timeout():
 	Signals.score +=1
 	$Timer.start()
 	return Signals.score
+

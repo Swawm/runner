@@ -36,11 +36,6 @@ region = Rect2( 192, 0, 32, 32 )
 
 [sub_resource type="SpriteFrames" id=8]
 animations = [ {
-"frames": [ ExtResource( 2 ) ],
-"loop": true,
-"name": "Fall",
-"speed": 5.0
-}, {
 "frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ) ],
 "loop": true,
 "name": "Run",
@@ -49,6 +44,11 @@ animations = [ {
 "frames": [ ExtResource( 4 ) ],
 "loop": true,
 "name": "jump",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "Fall",
 "speed": 5.0
 } ]
 
@@ -80,6 +80,7 @@ shape = SubResource( 10 )
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.497
+autostart = true
 
 [node name="audio" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 8 )
