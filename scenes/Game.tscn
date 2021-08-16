@@ -56,9 +56,9 @@ margin_bottom = 334.0
 
 [node name="Game Over" parent="." instance=ExtResource( 11 )]
 visible = false
-margin_left = 171.0
-margin_top = 407.0
-margin_right = 171.0
-margin_bottom = 407.0
+margin_left = -129.228
+margin_top = 170.826
+margin_right = -129.228
+margin_bottom = 170.826
 
 [connection signal="timeout" from="Timer" to="Player" method="_on_Timer_timeout"]

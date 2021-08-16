@@ -15,7 +15,7 @@ onready var sound_4 = preload("res://audio/sounds/jump04.wav")
 
 
 
-export var jump_velocity = 350.0
+export var jump_velocity = 300.0
 export var gravity_scale = 9.5
 
 enum {

@@ -17,5 +17,5 @@ func _on_Retry_pressed():
 
 
 func _on_Listen_pressed():
-	print ("aboba")
+	$Album.play()
 	pass # Replace with function body.
