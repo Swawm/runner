@@ -6,6 +6,7 @@ func _ready():
 	
 func gameover():
 	$ded.play()
+	Engine.time_scale = 0.0
 	self.show()
 	if Signals.score >= 40:
 		$Listen.show()
@@ -13,9 +14,9 @@ func gameover():
 
 func _on_Retry_pressed():
 	Signals.score = 0
+	Engine.time_scale = 1.0
 	get_tree().reload_current_scene()
 	
-
 
 func _on_Listen_pressed():
 	$Album.play()

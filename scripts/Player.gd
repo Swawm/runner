@@ -47,6 +47,7 @@ func _physics_process(delta):
 		FALL:
 			animation.play("Fall")
 			set_physics_process(false)
+			Signals.speed = 0
 			
 	
 	velocity.y += gravity_scale
@@ -60,7 +61,7 @@ func _input(event):
 	
 func _ready():
 	Signals.connect("killplayer", self, "killplayer")
-	sounds = [ sound_1, sound_2, sound_3, sound_4 ] 
+	sounds = [ sound_1, sound_2, sound_3, sound_4 ]
 	animation.play("Run")
 
 
@@ -95,7 +96,11 @@ func killplayer():
 	pass
 
 func _on_Timer_timeout():
-	Signals.score +=1
+	if (state == RUN):
+		Signals.score += 1
+	# Здесь и меняется скорость препятствий
+	if (Signals.speed <= 3.0 && state == RUN):
+		Signals.speed += 0.1
 	$Timer.start()
 	return Signals.score
 

@@ -1,6 +1,6 @@
 extends Node2D
 
-export var scroll_speed = 3.3
+#export (float) var scroll_speed
 
 func move():
-	self.position.x -= scroll_speed
+	self.position.x -= Signals.speed
