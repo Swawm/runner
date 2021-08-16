@@ -94,7 +94,8 @@ func _on_Timer_timeout():
 	if (state == RUN || state == JUMP):
 		Signals.score += 1
 	# Здесь и меняется скорость препятствий
-	if (Signals.speed <= 3.0 && (state == RUN || state == JUMP)):
+	if (Signals.speed <= 9.0 && (state == RUN || state == JUMP)):
+		Signals.emit_signal("road_speed_up")
 		Signals.speed += 0.1
 	$Timer.start()
 	return Signals.score
