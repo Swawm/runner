@@ -2,13 +2,13 @@ extends Control
 
 func _ready():
 	Signals.connect("killplayer", self, "gameover")
-	pass
+
 	
 func gameover():
 	$ded.play()
 	Engine.time_scale = 0.0
 	self.show()
-	if Signals.score >= 40:
+	if Signals.score >= 50:
 		$Listen.show()
 	
 
@@ -19,5 +19,6 @@ func _on_Retry_pressed():
 	
 
 func _on_Listen_pressed():
+	Engine.time_scale = 1.0
+	Signals.emit_signal("album_on")
 	$Album.play()
-	pass # Replace with function body.

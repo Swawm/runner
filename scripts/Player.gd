@@ -3,6 +3,7 @@ class_name Player
 
 signal killplayer
 
+
 var velocity = Vector2.ZERO
 var sounds : Array
 var sound_index = 0
@@ -22,7 +23,8 @@ enum {
 	JUMP,
 	RUN,
 	IDLE,
-	FALL
+	FALL,
+	ALBUM
 }
 
 var state = IDLE 
@@ -48,6 +50,8 @@ func _physics_process(delta):
 			animation.play("Fall")
 			set_physics_process(false)
 			Signals.speed = 0
+		ALBUM:
+			animation.play("Album")
 			
 	
 	velocity.y += gravity_scale
@@ -60,6 +64,7 @@ func _input(event):
 		
 	
 func _ready():
+	Signals.connect("album_on", self, "album_on")
 	Signals.connect("killplayer", self, "killplayer")
 	sounds = [ sound_1, sound_2, sound_3, sound_4 ]
 	animation.play("Run")
@@ -72,16 +77,6 @@ func _on_Area2D_body_entered(body):
 func _on_Area2D_body_exited(body):
 	if body is StaticBody2D:
 		state = IDLE
-	
-
-
-#func _on_Timer_timeout():
-#	state = get_random_state([JUMP,IDLE,RUN])
-#
-#func get_random_state(statelist):
-#	randomize()
-#	statelist.shuffle()
-#	return statelist.front()
 
 
 func _play_sound(sound_index):
@@ -96,11 +91,14 @@ func killplayer():
 	pass
 
 func _on_Timer_timeout():
-	if (state == RUN):
+	if (state == RUN || state == JUMP):
 		Signals.score += 1
 	# Здесь и меняется скорость препятствий
-	if (Signals.speed <= 3.0 && state == RUN):
+	if (Signals.speed <= 3.0 && (state == RUN || state == JUMP)):
 		Signals.speed += 0.1
 	$Timer.start()
 	return Signals.score
 
+func album_on():
+	set_physics_process(true)
+	state = ALBUM

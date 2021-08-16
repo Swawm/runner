@@ -19,11 +19,13 @@ script/source = "extends Control
 
 func _ready():
 	get_tree().paused = true
+	$ColorRect.show()
 	
 	
 func _physics_process(delta):
 	if Input.is_action_just_pressed(\"jump\"):
 		get_tree().paused = false
+		$ColorRect.hide()
 	pass
 "
 
@@ -39,6 +41,14 @@ zoom = Vector2( 0.3, 0.3 )
 position = Vector2( 81, 448 )
 z_index = -10
 
+[node name="Foreground2" parent="." instance=ExtResource( 2 )]
+position = Vector2( -175, 448 )
+z_index = -10
+
+[node name="Foreground3" parent="." instance=ExtResource( 2 )]
+position = Vector2( 337, 448 )
+z_index = -10
+
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 98, 458 )
 
@@ -46,10 +56,9 @@ position = Vector2( 98, 458 )
 position = Vector2( 564, 363 )
 script = ExtResource( 4 )
 scenes = [ ExtResource( 8 ) ]
-timer = 40.0
+timer = 10.0
 
 [node name="Timer" type="Timer" parent="Clouds"]
-wait_time = 100.0
 autostart = true
 
 [node name="Spawner" parent="." instance=ExtResource( 3 )]
@@ -77,6 +86,16 @@ pause_mode = 2
 margin_right = 40.0
 margin_bottom = 40.0
 script = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="Pause"]
+visible = false
+margin_left = -388.0
+margin_right = 1914.0
+margin_bottom = 1174.0
+color = Color( 0.356863, 0.352941, 0.352941, 0.690196 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
