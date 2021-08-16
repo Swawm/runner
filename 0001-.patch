@@ -1,0 +1,207 @@
+From dce5f96f8f9de2495cd2657dc50edc89e1b5cfbc Mon Sep 17 00:00:00 2001
+From: Pavel Zenov <9086704+linuxoidmc@users.noreply.github.com>
+Date: Mon, 16 Aug 2021 22:09:38 +0300
+Subject: [PATCH] =?UTF-8?q?=D0=A1=D1=82=D0=B0=D1=82=D0=B8=D1=87=D0=BD?=
+ =?UTF-8?q?=D1=8B=D0=B5=20=D1=81=D0=BA=D0=BE=D1=80=D0=BE=D1=81=D1=82=D0=B8?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+---
+ export_presets.cfg     | 24 +++++++++++++++++++
+ scenes/Foreground.tscn | 54 +++++++++++++++++++++++++++++++++++++++++-
+ scenes/clouds.tscn     |  1 -
+ scripts/Cake.gd        |  2 ++
+ scripts/Player.gd      |  6 ++---
+ scripts/Signals.gd     |  2 +-
+ scripts/clouds.gd      |  3 +++
+ 7 files changed, 86 insertions(+), 6 deletions(-)
+ create mode 100644 export_presets.cfg
+
+diff --git a/export_presets.cfg b/export_presets.cfg
+new file mode 100644
+index 0000000..730d9db
+--- /dev/null
++++ b/export_presets.cfg
+@@ -0,0 +1,24 @@
++[preset.0]
++
++name="HTML5"
++platform="HTML5"
++runnable=true
++custom_features=""
++export_filter="all_resources"
++include_filter=""
++exclude_filter=""
++export_path=""
++script_export_mode=1
++script_encryption_key=""
++
++[preset.0.options]
++
++custom_template/debug=""
++custom_template/release=""
++variant/export_type=0
++vram_texture_compression/for_desktop=true
++vram_texture_compression/for_mobile=false
++html/custom_html_shell=""
++html/head_include=""
++html/canvas_resize_policy=2
++html/experimental_virtual_keyboard=false
+diff --git a/scenes/Foreground.tscn b/scenes/Foreground.tscn
+index 3be85c6..ebfc844 100644
+--- a/scenes/Foreground.tscn
++++ b/scenes/Foreground.tscn
+@@ -18,7 +18,7 @@ void fragment(){
+ [sub_resource type="ShaderMaterial" id=2]
+ resource_local_to_scene = true
+ shader = SubResource( 1 )
+-shader_param/scroll_speed = 0.5
++shader_param/scroll_speed = 1.5
+ 
+ [sub_resource type="RectangleShape2D" id=3]
+ extents = Vector2( 322, 6 )
+@@ -27,6 +27,11 @@ extents = Vector2( 322, 6 )
+ 
+ [node name="ScrollingBackground" parent="." instance=ExtResource( 2 )]
+ material = SubResource( 2 )
++margin_left = -0.315445
++margin_top = -0.00338364
++margin_right = 127.685
++margin_bottom = 31.9966
++rect_pivot_offset = Vector2( 6.33627, 26.9047 )
+ 
+ [node name="StaticBody2D" type="StaticBody2D" parent="ScrollingBackground"]
+ visible = false
+@@ -36,6 +41,38 @@ visible = false
+ position = Vector2( 303, 33 )
+ shape = SubResource( 3 )
+ 
++[node name="ScrollingBackground3" parent="." instance=ExtResource( 2 )]
++material = SubResource( 2 )
++margin_left = -128.368
++margin_top = -0.319954
++margin_right = -0.367935
++margin_bottom = 31.68
++rect_pivot_offset = Vector2( 6.33627, 26.9047 )
++
++[node name="StaticBody2D" type="StaticBody2D" parent="ScrollingBackground3"]
++visible = false
++
++[node name="CollisionShape2D" type="CollisionShape2D" parent="ScrollingBackground3/StaticBody2D"]
++visible = false
++position = Vector2( 303, 33 )
++shape = SubResource( 3 )
++
++[node name="ScrollingBackground4" parent="." instance=ExtResource( 2 )]
++material = SubResource( 2 )
++margin_left = -256.464
++margin_top = 0.360619
++margin_right = -128.464
++margin_bottom = 32.3606
++rect_pivot_offset = Vector2( 6.33627, 26.9047 )
++
++[node name="StaticBody2D" type="StaticBody2D" parent="ScrollingBackground4"]
++visible = false
++
++[node name="CollisionShape2D" type="CollisionShape2D" parent="ScrollingBackground4/StaticBody2D"]
++visible = false
++position = Vector2( 303, 33 )
++shape = SubResource( 3 )
++
+ [node name="ScrollingBackground2" parent="." instance=ExtResource( 2 )]
+ material = SubResource( 2 )
+ margin_left = 128.0
+@@ -49,3 +86,18 @@ visible = false
+ visible = false
+ position = Vector2( 303, 33 )
+ shape = SubResource( 3 )
++
++[node name="ScrollingBackground5" parent="." instance=ExtResource( 2 )]
++material = SubResource( 2 )
++margin_left = 256.332
++margin_top = 0.281883
++margin_right = 384.332
++margin_bottom = 32.2819
++
++[node name="StaticBody2D" type="StaticBody2D" parent="ScrollingBackground5"]
++visible = false
++
++[node name="CollisionShape2D" type="CollisionShape2D" parent="ScrollingBackground5/StaticBody2D"]
++visible = false
++position = Vector2( 303, 33 )
++shape = SubResource( 3 )
+diff --git a/scenes/clouds.tscn b/scenes/clouds.tscn
+index c6d5cd2..134b4e6 100644
+--- a/scenes/clouds.tscn
++++ b/scenes/clouds.tscn
+@@ -5,7 +5,6 @@
+ 
+ [node name="Clouds" type="Node2D"]
+ script = ExtResource( 2 )
+-scroll_speed = 0.3
+ 
+ [node name="Sprite" type="Sprite" parent="."]
+ texture = ExtResource( 1 )
+diff --git a/scripts/Cake.gd b/scripts/Cake.gd
+index 3a59498..f275733 100644
+--- a/scripts/Cake.gd
++++ b/scripts/Cake.gd
+@@ -8,6 +8,8 @@ func _ready():
+ func _physics_process(delta):
+ 	move()
+ 
++func move():
++	self.position.x -= 5
+ 
+ func _on_Area2D_body_entered(body):
+ 	if body.name =="Player":
+diff --git a/scripts/Player.gd b/scripts/Player.gd
+index b95081d..6da4b69 100644
+--- a/scripts/Player.gd
++++ b/scripts/Player.gd
+@@ -47,7 +47,7 @@ func _physics_process(delta):
+ 		FALL:
+ 			animation.play("Fall")
+ 			set_physics_process(false)
+-			Signals.speed = 0
++			#Signals.speed = 0
+ 			
+ 	
+ 	velocity.y += gravity_scale
+@@ -99,8 +99,8 @@ func _on_Timer_timeout():
+ 	if (state == RUN):
+ 		Signals.score += 1
+ 	# Здесь и меняется скорость препятствий
+-	if (Signals.speed <= 3.0 && state == RUN):
+-		Signals.speed += 0.1
++	#if (Signals.speed <= 3.0 && state == RUN):
++	#	Signals.speed += 0.1
+ 	$Timer.start()
+ 	return Signals.score
+ 
+diff --git a/scripts/Signals.gd b/scripts/Signals.gd
+index 8cebef9..629911f 100644
+--- a/scripts/Signals.gd
++++ b/scripts/Signals.gd
+@@ -2,4 +2,4 @@ extends Node
+ 
+ signal killplayer
+ var score : int
+-var speed : float
++var speed : float = 3.2
+diff --git a/scripts/clouds.gd b/scripts/clouds.gd
+index 6d20d81..8d6ef86 100644
+--- a/scripts/clouds.gd
++++ b/scripts/clouds.gd
+@@ -1,4 +1,7 @@
+ extends "ScrollMovement.gd"
+ 
++func move():
++	self.position.x -= 0.5
++
+ func _physics_process(delta):
+ 	move()
+-- 
+2.24.3 (Apple Git-128)
+
