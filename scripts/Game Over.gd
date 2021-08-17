@@ -8,7 +8,7 @@ func gameover():
 	$ded.play()
 	Engine.time_scale = 0.0
 	self.show()
-	if Signals.score >= 150:
+	if Signals.score >= 10:
 		$Listen.show()
 	
 

@@ -22,7 +22,6 @@ _global_script_class_icons={
 
 config/name="runner"
 run/main_scene="res://scenes/Game.tscn"
-config/icon="res://icon.png"
 
 [autoload]
 
@@ -34,8 +33,9 @@ ScrollMovement="*res://scripts/ScrollMovement.gd"
 window/size/width=600
 window/size/height=500
 window/size/resizable=false
-window/size/borderless=true
-window/size/always_on_top=true
+window/vsync/use_vsync=false
+window/stretch/mode="viewport"
+window/stretch/aspect="keep"
 
 [input]
 
@@ -51,5 +51,6 @@ common/enable_pause_aware_picking=true
 
 [rendering]
 
+quality/driver/driver_name="GLES2"
 environment/default_clear_color=Color( 1, 1, 1, 1 )
 environment/default_environment="res://default_env.tres"
