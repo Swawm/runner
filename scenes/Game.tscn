@@ -46,14 +46,6 @@ zoom = Vector2( 0.3, 0.3 )
 position = Vector2( 81, 448 )
 z_index = -10
 
-[node name="Foreground2" parent="." instance=ExtResource( 2 )]
-position = Vector2( -175, 448 )
-z_index = -10
-
-[node name="Foreground3" parent="." instance=ExtResource( 2 )]
-position = Vector2( 337, 448 )
-z_index = -10
-
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 98, 458 )
 
@@ -105,10 +97,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="music" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 13 )
-autoplay = true
-
 [node name="touch" type="Control" parent="."]
 pause_mode = 2
 margin_right = 40.0
@@ -140,5 +128,9 @@ scale = Vector2( 0.65625, 0.624998 )
 normal = ExtResource( 16 )
 pressed = ExtResource( 17 )
 action = "ui_down"
+
+[node name="music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 13 )
+autoplay = true
 
 [connection signal="timeout" from="Clouds/Timer" to="Clouds" method="_on_Timer_timeout"]

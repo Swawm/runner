@@ -41,6 +41,5 @@ __meta__ = {
 
 [node name="ded" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
-
 [connection signal="pressed" from="Retry" to="." method="_on_Retry_pressed"]
 [connection signal="pressed" from="Listen" to="." method="_on_Listen_pressed"]
