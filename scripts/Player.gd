@@ -24,7 +24,6 @@ enum {
 	RUN,
 	IDLE,
 	FALL,
-	ALBUM
 }
 
 var state = IDLE 
@@ -50,8 +49,6 @@ func _physics_process(delta):
 			animation.play("Fall")
 			set_physics_process(false)
 			Signals.speed = 0
-		ALBUM:
-			animation.play("Album")
 			
 	
 	velocity.y += gravity_scale
@@ -61,10 +58,13 @@ func _input(event):
 	if state == RUN:
 		if event.is_action_pressed("jump"):
 			state = JUMP
+	if state == IDLE:
+		if event.is_action_pressed("ui_down"):
+			velocity = Vector2.ZERO
+			velocity.y += jump_velocity
 		
 	
 func _ready():
-	Signals.connect("album_on", self, "album_on")
 	Signals.connect("killplayer", self, "killplayer")
 	sounds = [ sound_1, sound_2, sound_3, sound_4 ]
 	animation.play("Run")
@@ -91,15 +91,11 @@ func killplayer():
 	pass
 
 func _on_Timer_timeout():
-	if (state == RUN || state == JUMP):
+	if (state == RUN || state == IDLE):
 		Signals.score += 1
 	# Здесь и меняется скорость препятствий
-	if (Signals.speed <= 9.0 && (state == RUN || state == JUMP)):
+	if (Signals.speed <= 9.0 && (state == RUN || state == IDLE)):
 		Signals.emit_signal("road_speed_up")
 		Signals.speed += 0.1
 	$Timer.start()
 	return Signals.score
-
-func album_on():
-	set_physics_process(true)
-	state = ALBUM

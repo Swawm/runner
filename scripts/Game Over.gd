@@ -8,7 +8,7 @@ func gameover():
 	$ded.play()
 	Engine.time_scale = 0.0
 	self.show()
-	if Signals.score >= 50:
+	if Signals.score >= 150:
 		$Listen.show()
 	
 
@@ -20,5 +20,4 @@ func _on_Retry_pressed():
 
 func _on_Listen_pressed():
 	Engine.time_scale = 1.0
-	Signals.emit_signal("album_on")
-	$Album.play()
+	get_tree().change_scene("res://scenes/Album.tscn")
