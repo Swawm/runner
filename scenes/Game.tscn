@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/Foreground.tscn" type="PackedScene" id=2]
@@ -13,6 +13,10 @@
 [ext_resource path="res://scenes/Game Over.tscn" type="PackedScene" id=11]
 [ext_resource path="res://scenes/Cake.tscn" type="PackedScene" id=12]
 [ext_resource path="res://audio/Untitled.mp3" type="AudioStream" id=13]
+[ext_resource path="res://sprites/other/up.png" type="Texture" id=14]
+[ext_resource path="res://sprites/other/up tap.png" type="Texture" id=15]
+[ext_resource path="res://sprites/other/down.png" type="Texture" id=16]
+[ext_resource path="res://sprites/other/down tap.png" type="Texture" id=17]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Control
@@ -104,5 +108,37 @@ __meta__ = {
 [node name="music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 13 )
 autoplay = true
+
+[node name="touch" type="Control" parent="."]
+pause_mode = 2
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="touch"]
+margin_left = 79.0
+margin_top = 482.0
+margin_right = 263.0
+margin_bottom = 507.0
+color = Color( 0.0392157, 0.0352941, 0.0352941, 0.607843 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Jump" type="TouchScreenButton" parent="touch/ColorRect"]
+position = Vector2( 19.0999, 1.00003 )
+scale = Vector2( 0.653129, 0.624999 )
+normal = ExtResource( 14 )
+pressed = ExtResource( 15 )
+action = "jump"
+
+[node name="Down" type="TouchScreenButton" parent="touch/ColorRect"]
+position = Vector2( 145, 1.00003 )
+scale = Vector2( 0.65625, 0.624998 )
+normal = ExtResource( 16 )
+pressed = ExtResource( 17 )
+action = "ui_down"
 
 [connection signal="timeout" from="Clouds/Timer" to="Clouds" method="_on_Timer_timeout"]
